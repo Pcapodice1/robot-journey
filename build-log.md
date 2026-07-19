@@ -29,6 +29,19 @@ After each build session, add an entry at the TOP of the Log (newest first). Hon
 - **Time spent:**
 - **📹 Episode-worthy?** yes/no — [what's the moment?]
 
+### 2026-07-19 (PM) — Controller connected: Xbox pad talks to Python
+- **Goal:** Get a game controller talking to Python — first step toward Milestone 2 (sim teleoperation).
+- **What I tried:** Original plan was a PlayStation controller.
+- **What broke:** The PS controller turned out to be too old for Bluetooth. Swapped to an Xbox controller — paired with the Mac via System Settings → Bluetooth (hold pair button until the Xbox logo flashes fast).
+- **The fix / what worked:**
+  - One-line pygame check confirmed detection: `Controllers found: 1` plus the controller name.
+  - Created `/Volumes/RobotSSD/robot-journey/scripts/controller_test.py` — a live loop printing left/right stick axes (-1.00 to +1.00) and pressed button numbers.
+  - Wiggle test worked: stick movements dance across the terminal in real time. Recorded multiple takes (Cmd+K to clear between takes, Cmd+plus for bigger font on camera).
+- **Why it works (in plain English):** pygame's `event.pump()` asks macOS for fresh controller data each loop pass. Sticks report as two axes each, ranging -1 to +1; at rest they hover near 0 with a little drift (±0.05 is normal — that's why robot code uses "deadzones"). This script is the bridge: physical world → numbers → soon, robot joints.
+- **New scripts folder:** `/Volumes/RobotSSD/robot-journey/scripts/` now exists alongside `/models`.
+- **Time spent:** ~45 min
+- **📹 Episode-worthy?** yes — the "it's alive" moment: wiggling a physical stick and watching numbers dance on screen. This is the physical-world-to-Python bridge, captured on camera. Episode 2 opener.
+
 ### 2026-07-19 — The Three Pythons (pygame moves into the wrong house)
 - **Goal:** Install pygame in mujoco-env (prep for game controller teleop).
 - **What I tried:** `conda activate mujoco-env` then `pip install pygame` in a terminal left over from the day before.
